@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 
 import { randomInt } from '../../utils/number';
 import { randomArrayValue } from '../../utils/array';
@@ -13,8 +13,9 @@ export class CockpitComponent implements OnInit {
 
   @Input() serversLength: number;
   @Output() serverCreated = new EventEmitter<Server>();
+  @ViewChild('serverNameInput', {static: true}) serverNameInput: ElementRef;
 
-  public serverName: string;
+  // public serverName: string;
   public serverStatus: Array<string> = ['offline', 'online'];
 
   constructor() { }
@@ -26,20 +27,21 @@ export class CockpitComponent implements OnInit {
   createServer() {
     const server = new Server(
       randomInt(10),
-      this.serverName,
+      // this.serverName,
+      this.serverNameInput.nativeElement.value,
       randomArrayValue(this.serverStatus)
     );
 
-    this.resetServerName();
+    // this.resetServerName();
     // Emit event with server
     this.serverCreated.emit(server);
   }
 
   resetServerName() {
-    this.serverName = '';
+    // this.serverName = '';
   }
 
   allowNewServer() {
-    return this.serversLength < 3 && this.serverName.trim().length;
+    return this.serversLength < 3 /*&& this.serverName.trim().length*/;
   }
 }

@@ -1,6 +1,10 @@
-<input type="text" class="form-control" placeholder="Name"
-    [(ngModel)]="serverName">
-
-<button type="button" class="btn btn-primary" 
-    [disabled]="!allowNewServer()"
-    (click)="createServer()">Add server</button>
+<div class="row">
+    <div class="col-xs-12">
+        <p>Add new server</p>
+        <input type="text" class="form-control" placeholder="Name"
+            #serverNameInput>
+        <button type="button" class="btn btn-primary" 
+            [disabled]="!allowNewServer()"
+            (click)="createServer()">Add</button>
+    </div>
+</div>

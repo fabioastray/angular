@@ -1,0 +1,13 @@
+<!-- Highlight Card -->
+<button class="" [disabled]="disableStart()" (click)="start()">Start</button>
+<button class="" [disabled]="disableStop()" (click)="stop()">Stop</button>
+<button class="" [disabled]="disableReset()" (click)="reset()">Reset</button>
+
+<hr>
+
+<div *ngFor="let number of numbers">
+
+    <app-even *ngIf="isEven(number)" [(number)]="number"></app-even>
+    <app-odd *ngIf="isOdd(number)" [(number)]="number"></app-odd>
+
+</div>
