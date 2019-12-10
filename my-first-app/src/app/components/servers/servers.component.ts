@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Server } from '../../models/server';
-import { randomInt } from '../../utils/number';
-import { randomArrayValue } from '../../utils/array';
 
 @Component({
   // selector: '[app-servers]',
@@ -13,35 +11,17 @@ import { randomArrayValue } from '../../utils/array';
 })
 export class ServersComponent implements OnInit {
 
-  serverName: string;
   servers: Array<Server>;
-  serverStatus: Array<string> = ['offline', 'online'];
   noServersMessage = 'No servers found';
 
   constructor() { }
 
   ngOnInit() {
-    this.resetServerName();
     this.servers = [];
   }
 
-  createServer() {
-    const server = new Server(
-      randomInt(10),
-      this.serverName,
-      randomArrayValue(this.serverStatus)
-    );
-
+  onServerCreated(server: Server) {
     this.servers.push(server);
-    this.resetServerName();
-  }
-
-  resetServerName() {
-    this.serverName = '';
-  }
-
-  allowNewServer() {
-    return this.servers.length < 3 && this.serverName.trim().length;
   }
 
   getServersLengthColor() {
