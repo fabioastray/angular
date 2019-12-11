@@ -5,13 +5,17 @@ import { AppComponent } from './app.component';
 import { GameControlComponent } from './components/game-control/game-control.component';
 import { OddComponent } from './components/odd/odd.component';
 import { EvenComponent } from './components/even/even.component';
+import { BasicHighlightDirective } from './directives/basic-highlight.directive';
+import { BetterHighlightDirective } from './directives/better-highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameControlComponent,
     OddComponent,
-    EvenComponent
+    EvenComponent,
+    BasicHighlightDirective,
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule
