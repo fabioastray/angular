@@ -1,0 +1,10 @@
+import Ingredient from './ingredient.model';
+
+export default class Recipe {
+    constructor(public name: string, public description: string, public imagePath: string, public ingredients: Ingredient[]) {
+        this.name = name;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.ingredients = ingredients;
+    }
+}

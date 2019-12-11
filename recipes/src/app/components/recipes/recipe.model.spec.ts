@@ -1,4 +1,4 @@
-import { Recipe } from './recipe.model';
+import { Recipe } from '../../models/recipe.model';
 
 describe('Recipe', () => {
   it('should create an instance', () => {
