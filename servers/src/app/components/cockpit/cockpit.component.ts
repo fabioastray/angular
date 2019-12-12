@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import { randomInt } from '../../utils/number';
 import { randomArrayValue } from '../../utils/array';
-import { Server } from 'src/app/models/server';
+import { ServersService } from 'src/app/services/servers.service';
 
 @Component({
   selector: 'app-cockpit',
@@ -12,33 +11,25 @@ import { Server } from 'src/app/models/server';
 export class CockpitComponent implements OnInit {
 
   @Input() serversLength: number;
-  @Output() serverCreated = new EventEmitter<Server>();
-  @ViewChild('serverNameInput', {static: true}) serverNameInput: ElementRef;
 
-  // public serverName: string;
-  public serverStatus: Array<string> = ['offline', 'online'];
+  public serverName: string;
+  private serverStatus: Array<string>;
 
-  constructor() { }
+  constructor(private serverService: ServersService) { }
 
   ngOnInit() {
+    this.serverStatus = ['offline', 'online'];
     this.resetServerName();
   }
 
   createServer() {
-    const server = new Server(
-      randomInt(10),
-      // this.serverName,
-      this.serverNameInput.nativeElement.value,
-      randomArrayValue(this.serverStatus)
-    );
+    this.serverService.add(this.serverName, randomArrayValue(this.serverStatus));
 
-    // this.resetServerName();
-    // Emit event with server
-    this.serverCreated.emit(server);
+    this.resetServerName();
   }
 
   resetServerName() {
-    // this.serverName = '';
+    this.serverName = '';
   }
 
   allowNewServer() {
