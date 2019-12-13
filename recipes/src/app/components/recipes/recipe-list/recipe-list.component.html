@@ -8,9 +8,8 @@
     <label>Recipe List</label>
     <div class="col-xs-12">
         <app-recipe-item
-         *ngFor="let recipe of recipes"
+         *ngFor="let recipe of recipes; index as i;"
          [item]="recipe"
-         (itemSelected)="onItemSelected($event)"
         ></app-recipe-item>
     </div>
 </div>
