@@ -15,6 +15,8 @@ import { ShoppingEditComponent } from './components/shopping-list/shopping-edit/
 import { DropdownDirective } from './directives/dropdown.directive';
 import { RecipeService } from './services/recipe.service';
 import { ShoppingListService } from './services/shopping-list.service';
+import { SuccessAlertComponent } from './components/success-alert/success-alert.component';
+import { AutocloseDirective } from './directives/autoclose.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ShoppingListService } from './services/shopping-list.service';
     HeaderComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    SuccessAlertComponent,
+    AutocloseDirective
   ],
   imports: [
     BrowserModule,
