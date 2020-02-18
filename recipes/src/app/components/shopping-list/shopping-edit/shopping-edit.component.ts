@@ -9,8 +9,8 @@ import { ShoppingListService } from 'src/app/services/shopping-list.service';
 })
 export class ShoppingEditComponent {
 
-  @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
-  @ViewChild('amountInput', { static: false }) amountInputRef: ElementRef;
+  @ViewChild('nameInput') nameInputRef: ElementRef;
+  @ViewChild('amountInput') amountInputRef: ElementRef;
 
   constructor(private shoppingListService: ShoppingListService) {}
 
