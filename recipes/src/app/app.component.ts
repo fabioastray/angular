@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-shop';
-  loadedFeature = 'recipe';
-
-  navigate(event) {
-    this.loadedFeature = event;
-  }
 }
