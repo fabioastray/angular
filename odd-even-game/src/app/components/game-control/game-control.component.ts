@@ -1,17 +1,19 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { GameControlAppState } from 'src/app/models/AppState';
+import { interval, Subscription, Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-control',
   templateUrl: './game-control.component.html',
   styleUrls: ['./game-control.component.css']
 })
-export class GameControlComponent implements OnInit {
+export class GameControlComponent implements OnInit, OnDestroy {
 
   @Output() appStateChange = new EventEmitter<GameControlAppState>();
 
   numbers: number[] = [];
-  private intervalRef: ReturnType<typeof setTimeout>;
+  private intervalSubscription: Subscription;
   private appState: GameControlAppState;
 
   constructor() {
@@ -22,19 +24,47 @@ export class GameControlComponent implements OnInit {
     this.appStateChange.emit(this.appState);
   }
 
+  ngOnDestroy() {
+    this.clearInterval();
+  }
+
   start() {
-    this.intervalRef = setInterval(() => {
-      this.numbers.push(this.numbers.length + 1);
-    }, 1000);
+    const customObservable = new Observable(observer => {
+      let count = 0;
+      setInterval(() => {
+        observer.next(count);
+
+        if (count === 12) {
+          observer.complete();
+        }
+
+        if (count > 8) {
+          observer.error(new Error('Oh no, this is an error!'));
+        }
+
+        count ++;
+      }, 1000);
+    });
+
+    // this.intervalSubscription = interval(1000).subscribe(count => this.numbers.push(count));
+    this.intervalSubscription = customObservable
+      .pipe(
+        filter((count: number) => count % 1 === 0),
+        map((count: number) => count + 1)
+      )
+      .subscribe(
+        (count: number) => this.numbers.push(count),
+        error => console.error(error),
+        () => console.log('completed')
+      );
 
     this.appState.setState('started');
     this.appStateChange.emit(this.appState);
   }
 
   clearInterval() {
-    if (this.intervalRef) {
-      clearInterval(this.intervalRef);
-      this.intervalRef = null;
+    if (!this.intervalSubscription.closed) {
+      this.intervalSubscription.unsubscribe();
     }
   }
 
@@ -57,7 +87,7 @@ export class GameControlComponent implements OnInit {
   }
 
   disableStop() {
-    return this.numbers.length === 0 || !this.intervalRef;
+    return this.numbers.length === 0 || !this.intervalSubscription;
   }
 
   disableReset() {

@@ -3,11 +3,12 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Server } from '../models/server';
 import { randomInt } from '../utils/number';
 import { LoggingService } from './logging.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ServersService {
 
-  addEvent = new EventEmitter<string>();
+  addEvent = new Subject<string>();
   servers: Server[] = [];
 
   constructor(private loggingService: LoggingService) {}
@@ -21,7 +22,7 @@ export class ServersService {
     this.servers.push(server);
 
     this.loggingService.log('server added', server);
-    this.addEvent.emit('server added');
+    this.addEvent.next('server added');
   }
 
   update(pos: number, server: Server) {
