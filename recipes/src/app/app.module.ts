@@ -17,6 +17,8 @@ import { RecipeService } from './services/recipe.service';
 import { ShoppingListService } from './services/shopping-list.service';
 import { SuccessAlertComponent } from './components/success-alert/success-alert.component';
 import { AutocloseDirective } from './directives/autoclose.directive';
+import { RecipesModule } from './components/recipes/recipes.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { AutocloseDirective } from './directives/autoclose.directive';
     ShoppingEditComponent,
     DropdownDirective,
     SuccessAlertComponent,
-    AutocloseDirective
+    AutocloseDirective,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RecipesModule,
+    AppRoutingModule
   ],
   providers: [RecipeService, ShoppingListService],
   bootstrap: [AppComponent]
