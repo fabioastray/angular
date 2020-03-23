@@ -16,6 +16,10 @@ export class ServersService {
     return this.servers;
   }
 
+  getServer(id: number) {
+    return this.servers.find((s: Server) => s.id === id);
+  }
+
   add(name: string, status: string) {
     const server = new Server(randomInt(10), name, status);
     this.servers.push(server);

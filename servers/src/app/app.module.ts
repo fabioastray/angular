@@ -9,6 +9,7 @@ import { ServersComponent } from './components/servers/servers.component';
 import { WarningAlertComponent } from './components/warning-alert/warning-alert.component';
 import { SuccessAlertComponent } from './components/success-alert/success-alert.component';
 import { CockpitComponent } from './components/cockpit/cockpit.component';
+import { ServerResolver } from './services/server-resolver.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { CockpitComponent } from './components/cockpit/cockpit.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ServerResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
