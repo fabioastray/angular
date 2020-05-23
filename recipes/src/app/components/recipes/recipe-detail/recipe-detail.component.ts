@@ -3,6 +3,7 @@ import Recipe from '../../../models/recipe.model';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -23,7 +24,8 @@ export class RecipeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private recipeService: RecipeService,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private matSnackBarService: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -46,5 +48,19 @@ export class RecipeDetailComponent implements OnInit {
 
   edit() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  delete() {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      this.recipeService.deleteRecipe(this.recipe.id);
+
+      this.matSnackBarService.open('Recipe deleted!', null, {
+        duration: 2000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right'
+      });
+
+      this.backToRecipes();
+    }
   }
 }

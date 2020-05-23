@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,9 @@ import { SuccessAlertComponent } from './components/success-alert/success-alert.
 import { AutocloseDirective } from './directives/autoclose.directive';
 import { RecipesModule } from './components/recipes/recipes.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,13 +37,17 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     DropdownDirective,
     SuccessAlertComponent,
     AutocloseDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ContactComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RecipesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NoopAnimationsModule
   ],
   providers: [RecipeService, ShoppingListService],
   bootstrap: [AppComponent]

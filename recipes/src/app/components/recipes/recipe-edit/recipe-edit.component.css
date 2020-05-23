@@ -1,0 +1,14 @@
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-pending {
+  border: 1px solid greenyellow;
+}
+
+.img-preview {
+  margin-bottom: 5px;
+  background: url('/assets/notfound.png') no-repeat;
+  width: 150px; /* height and width of background img */
+  height: 150px;
+}

@@ -1,27 +1,95 @@
-<div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <form>
-          <div id="user-data">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" class="form-control">
-            </div>
-            <button class="btn btn-default" type="button">Suggest an Username</button>
-            <div class="form-group">
-              <label for="email">Mail</label>
-              <input type="email" id="email" class="form-control">
-            </div>
-          </div>
+<div class="row">
+  <div class="col-xs-12">
+    <form (ngSubmit)="onSubmit()" [formGroup]="recipeForm">
+
+      <div class="row">
+        <div class="col-xs-12">
           <div class="form-group">
-            <label for="secret">Secret Questions</label>
-            <select id="secret" class="form-control">
-              <option value="pet">Your first Pet?</option>
-              <option value="teacher">Your first teacher?</option>
-            </select>
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control"
+                   name="name" required
+                   formControlName="name">
           </div>
-          <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
+        </div>
       </div>
-    </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Image URL</label>
+            <input type="text" id="imagePath" class="form-control"
+                   name="imagePath" required
+                   formControlName="imagePath"
+                   #imagePath>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <img class="img-responsive img-preview"
+               [attr.src]="imagePath.value">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control"
+                      name="description" required rows="6"
+                      formControlName="description">
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div class="row"
+               style="margin-top: 10px"
+               *ngFor="let ingredientCtrl of ingredientsControls; let i = index"
+               [formGroupName]="i">
+            <div class="col-xs-8">
+              <label for="recipeName">Name</label>
+              <input type="text" class="form-control" id="recipeName"
+                     formControlName="name">
+            </div>
+            <div class="col-xs-2">
+              <label for="recipeAmount">Amount</label>
+              <input type="number" class="form-control" id="recipeAmount"
+                     formControlName="amount">
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-danger" style="margin-top: 24px" type="button" title="Delete"
+                      (click)="deleteIngredient(i)">x</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2">
+              <button class="btn btn-success" style="margin-top: 10px" type="button" title="Add"
+                      (click)="addIngredient()">Add ingredient</button>
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-danger" style="margin-top: 10px" type="button" title="Delete all"
+                      (click)="deleteAllIngredients()">Delete all</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-success" type="submit"
+                  [disabled]="!recipeForm.valid">Save</button>
+          <button class="btn btn-primary" type="button"
+                  (click)="navigateToRecipes()">Cancel</button>
+        </div>
+      </div>
+
+    </form>
   </div>
+</div>
